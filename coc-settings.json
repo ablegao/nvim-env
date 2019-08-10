@@ -1,0 +1,11 @@
+{
+"json.format.enable": false,
+
+"python.linting.pydocstyleEnabled": true,
+"python.linting.enabled": true,
+"python.linting.lintOnSave": true,
+"python.jediEnabled": false,
+"python.linting.flake8Enabled":true,
+"go.enable": false,
+"coc.preferences.formatOnSaveFiletypes": ["python","json","go","html"]
+}
