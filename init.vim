@@ -169,6 +169,7 @@ let test#strategy = "neovim"
 let test#enabled_runners=["python#pytest","python#django"]
 autocmd FileType python nmap <leader>t :TestNearest <CR>
 autocmd FileType python nmap <leader>ta :TestFile <CR>
+autocmd FileType python nmap <leader>tl :TestLast <CR>
 autocmd FileType python set equalprg=autopep8\ -
 
 let g:deoplete#sources#jedi#show_docstring=1
