@@ -73,7 +73,7 @@ set scrolloff=5     "距离顶部和底部5行"
 set laststatus=2    "命令行为两行"
 set fenc=utf-8      "文件编码"
 set backspace=2
-set mouse=a     "启用鼠标"
+set mouse=nicr "a     "启用鼠标"
 set selection=exclusive
 set selectmode=mouse,key
 set matchtime=5
@@ -173,7 +173,7 @@ let g:jedi#documentation_command = "K"
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
-autocmd FileType python let g:autoformat_autoindent=1
+"autocmd FileType python let g:autoformat_autoindent=1
 autocmd FileType python let g:autoformat_retab=1
 autocmd FileType python let g:autoformat_remove_trailing_spaces=1
 let g:formatter_yapf_style ="google"
@@ -241,7 +241,9 @@ let mapleader=" "
 nmap <silent> <F8> :call TreeTagbarToggle() <CR>
 nmap <silent> <F7> : TaskList <CR>
 nmap <silent> <F9> : MBEToggle <CR>
-
+nmap <leader>w : bd <CR> 
+nmap <leader>n : bnext <CR>
+nmap <leader>p : bprev <CR>
 if has("termguicolors")
     " fix bug for vim
     set t_8f=^[[38;2;%lu;%lu;%lum
@@ -253,5 +255,5 @@ endif
 
 "set notermguicolors
 let g:airline_theme='gruvbox'
-"set background=light
+" set background=light
 colorscheme gruvbox
