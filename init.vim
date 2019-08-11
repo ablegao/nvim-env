@@ -25,9 +25,10 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'sbdchd/neoformat',{'for':'python'}
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'davidhalter/jedi-vim'
-Plug 'tell-k/vim-autopep8'
+Plug 'Chiel92/vim-autoformat'
+Plug 'fisadev/vim-isort'
 Plug 'janko/vim-test'
-
+Plug 'tpope/vim-dispatch'
 " Plug 'jupyter-vim/jupyter-vim'
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " Plug 'delijati/vim-importmagic'
@@ -155,22 +156,46 @@ let g:airline#extensions#tabline#formatter = 'default'
 
 
 
+let test#neovim#term_position = "topleft"
+
 "" python 
 let g:jedi#completions_enabled = 0
 "let g:jedi#use_splits_not_buffers = "right"
-let g:autopep8_on_save = 1
 let g:jedi#goto_command = "gd"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#documentation_command = "K"
-let g:autopep8_disable_show_diff=1
+
+" let g:autopep8_on_save = 1
+" let g:autopep8_disable_show_diff=1
+
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+autocmd FileType python let g:autoformat_autoindent=1
+autocmd FileType python let g:autoformat_retab=1
+autocmd FileType python let g:autoformat_remove_trailing_spaces=1
+let g:formatter_yapf_style ="google"
+" let g:formatter_yapf_style = 'pep8'
+let g:formatters_python = ['yapf']
+
+
 let test#strategy = "neovim"
-let test#enabled_runners=["python#pytest","python#django"]
+let test#enabled_runners=["python#pytest"]
+let test#python#pytest#executable = 'pytest --capture=no'
+
 autocmd FileType python nmap <leader>t :TestNearest <CR>
 autocmd FileType python nmap <leader>ta :TestFile <CR>
 autocmd FileType python nmap <leader>tl :TestLast <CR>
-autocmd FileType python set equalprg=autopep8\ -
+" autocmd FileType python set equalprg=autopep8\ -
+
+function OnSaveFormatPython()
+Autoformat
+Isort 
+endf
+autocmd BufWrite *.py :call OnSaveFormatPython()
+
 
 let g:deoplete#sources#jedi#show_docstring=1
 function HeaderPython()
