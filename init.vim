@@ -252,8 +252,9 @@ if has("termguicolors")
     " enable true color
     set termguicolors
 endif
-
-"set notermguicolors
+if has("unix")
+set notermguicolors
+endif
 let g:airline_theme='gruvbox'
 " set background=light
 colorscheme gruvbox
