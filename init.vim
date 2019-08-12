@@ -17,18 +17,22 @@ Plug 'Shougo/unite.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Plug 'sbdchd/neoformat',{'for':'python'}
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'davidhalter/jedi-vim'
-Plug 'Chiel92/vim-autoformat'
-Plug 'fisadev/vim-isort'
+"Plug 'deoplete-plugins/deoplete-jedi'
+" Plug 'davidhalter/jedi-vim'
+" Plug 'Chiel92/vim-autoformat'
+" Plug 'fisadev/vim-isort'
 Plug 'janko/vim-test'
-Plug 'tpope/vim-dispatch'
+" Plug 'tpope/vim-dispatch'
 " Plug 'jupyter-vim/jupyter-vim'
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " Plug 'delijati/vim-importmagic'
@@ -166,6 +170,8 @@ let g:jedi#usages_command = "<leader>n"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#documentation_command = "K"
+let g:LanguageClient_serverCommands={"python":['pyls']}
+
 
 " let g:autopep8_on_save = 1
 " let g:autopep8_disable_show_diff=1
@@ -188,13 +194,40 @@ let test#python#pytest#executable = 'pytest --capture=no'
 autocmd FileType python nmap <leader>t :TestNearest <CR>
 autocmd FileType python nmap <leader>ta :TestFile <CR>
 autocmd FileType python nmap <leader>tl :TestLast <CR>
-" autocmd FileType python set equalprg=autopep8\ -
 
 function OnSaveFormatPython()
 Autoformat
-Isort 
+"Isort 
 endf
-autocmd BufWrite *.py :call OnSaveFormatPython()
+autocmd BufWrite *.py :call LanguageClient_textDocument_formatting()
+let g:LanguageClient_windowLogMessageLevel='Error'
+let g:LanguageClient_diagnosticsDisplay=    {
+    \1: {
+	\"name": "Error",
+	\"texthl": "ALEError",
+	\"signText": "✖",
+	\"signTexthl": "ALEErrorSign",
+	\},
+     	\2: {
+            \"name": "Warning",
+			\"texthl": "ALEWarning",
+			\"signText": "⚠",
+			\"signTexthl": "ALEWarningSign",
+			\},
+			\3: {
+			\"name": "Information",
+			\"texthl": "ALEInfo",
+			\"signText": "ℹ",
+			\"signTexthl": "ALEInfoSign",
+			\},
+			\4: {
+			\"name": "Hint",
+			\"texthl": "ALEInfo",
+			\"signText": "➤",
+			\"signTexthl": "ALEInfoSign",
+			\},
+			\}
+
 
 
 let g:deoplete#sources#jedi#show_docstring=1

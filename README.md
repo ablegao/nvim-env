@@ -2,9 +2,8 @@
 
 	PlugInstall
 	GoInstall
-
+	pip install python-language-server
 	pip install pynvim 
-	pip install jupyter jupyter-core
 	pip install jedi
 	pip install yapf
 	pip install pyline
