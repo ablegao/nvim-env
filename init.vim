@@ -64,7 +64,7 @@ set guioptions-=b
 "隐藏顶部标签栏"
 set showtabline=0
 "设置字体"
-set guifont=Monaco:h13         
+"set guifont=Monaco:h13         
 syntax on   "开启语法高亮"
 set nowrap  "设置不折行"
 set fileformat=unix "设置以unix的格式保存文件"
