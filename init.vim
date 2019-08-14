@@ -10,7 +10,6 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-airline'
 Plug 'Shougo/unite.vim'
@@ -89,10 +88,9 @@ set whichwrap+=<,>,h,l
 set autoread
 set cursorline      "突出显示当前行"
 set cursorcolumn        "突出显示当前列"
-if has("mac")
-vmap "+y :w !pbcopy<CR><CR>
-nmap "+p :r !pbpaste<CR><CR>
-endif
+
+set clipboard=unnamed "共享剪贴板
+
 
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1 
