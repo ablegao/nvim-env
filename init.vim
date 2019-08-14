@@ -77,9 +77,9 @@ set scrolloff=5     "距离顶部和底部5行"
 set laststatus=2    "命令行为两行"
 set fenc=utf-8      "文件编码"
 set backspace=2
-set mouse=nicr "a     "启用鼠标"
+set mouse=a " nicr "a     "启用鼠标"
 set selection=exclusive
-set selectmode=mouse,key
+"set selectmode=mouse,key
 set matchtime=5
 set ignorecase      "忽略大小写"
 set incsearch
@@ -89,8 +89,10 @@ set whichwrap+=<,>,h,l
 set autoread
 set cursorline      "突出显示当前行"
 set cursorcolumn        "突出显示当前列"
-
-
+if has("mac")
+vmap "+y :w !pbcopy<CR><CR>
+nmap "+p :r !pbpaste<CR><CR>
+endif
 
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1 
