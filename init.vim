@@ -7,9 +7,11 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Multiple Plug commands can be written in a single line using | separators
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimfiler.vim'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-airline'
 Plug 'Shougo/unite.vim'
@@ -30,7 +32,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'davidhalter/jedi-vim'
 " Plug 'Chiel92/vim-autoformat'
 " Plug 'fisadev/vim-isort'
-Plug 'janko/vim-test'
+" Plug 'janko/vim-test'
 " Plug 'tpope/vim-dispatch'
 " Plug 'jupyter-vim/jupyter-vim'
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
@@ -90,6 +92,8 @@ set cursorline      "突出显示当前行"
 set cursorcolumn        "突出显示当前列"
 
 set clipboard=unnamed "共享剪贴板
+
+let g:vimfiler_as_default_explorer = 1
 
 
 let g:deoplete#enable_at_startup = 1
@@ -189,7 +193,7 @@ let g:formatters_python = ['yapf']
 
 let test#strategy = "neovim"
 let test#enabled_runners=["python#pytest"]
-let test#python#pytest#executable = 'pytest --capture=no'
+let test#python#pytest#executable = 'python -m pytest --capture=no'
 
 autocmd FileType python nmap <leader>t :TestNearest <CR>
 autocmd FileType python nmap <leader>ta :TestFile <CR>
@@ -266,14 +270,15 @@ let g:NERDTreeMapOpenInTab='<2-LeftMouse>'
 
 
 function! TreeTagbarToggle()
-NERDTreeToggle
+VimFilerExplorer
 TagbarToggle
 endfunction
 
 let mapleader=" "
-nmap <silent> <F8> :call TreeTagbarToggle() <CR>
-nmap <silent> <F7> : TaskList <CR>
-nmap <silent> <F9> : MBEToggle <CR>
+"nmap <silent> <F8> :call TreeTagbarToggle() <CR>
+nmap <silent> <F8> :VimFilerExplorer <CR>
+nmap <silent> <F7> :TaskList <CR>
+nmap <silent> <F9> :TagbarToggle <CR>
 nmap <leader>w : bd <CR> 
 nmap <leader>n : bnext <CR>
 nmap <leader>p : bprev <CR>
