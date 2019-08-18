@@ -1,6 +1,7 @@
 # 
 
 	PlugInstall
+	VimProcInstall
 	GoInstall
 	pip install python-language-server
 	pip install pynvim 

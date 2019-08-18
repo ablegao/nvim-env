@@ -11,10 +11,11 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'scrooloose/syntastic'
 "Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc'
 Plug 'Shougo/vimfiler.vim'
+Plug 'Shougo/neossh.vim'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-airline'
-Plug 'Shougo/unite.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
