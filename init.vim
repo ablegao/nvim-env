@@ -23,6 +23,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+Plug 'junegunn/fzf'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
@@ -33,8 +34,8 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'davidhalter/jedi-vim'
 " Plug 'Chiel92/vim-autoformat'
 " Plug 'fisadev/vim-isort'
-" Plug 'janko/vim-test'
-" Plug 'tpope/vim-dispatch'
+Plug 'janko/vim-test'
+ Plug 'tpope/vim-dispatch'
 " Plug 'jupyter-vim/jupyter-vim'
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " Plug 'delijati/vim-importmagic'
@@ -152,6 +153,8 @@ let g:go_fmt_fail_silently = 1
 let g:go_snippet_engine = "neosnippet"
 let g:go_test_timeout= '10s'
 let g:go_test_show_name = 1
+
+let g:test#go#gotest#file_pattern="\v.*_test\.go$"
 autocmd FileType go nmap <leader>ta <Plug>(go-test)
 autocmd FileType go nmap <leader>t <Plug>(go-test-func)
 autocmd FileType go nmap <leader>b <Plug>(go-build)
@@ -196,9 +199,12 @@ let test#strategy = "neovim"
 let test#enabled_runners=["python#pytest"]
 let test#python#pytest#executable = 'python -m pytest --capture=no'
 
-autocmd FileType python nmap <leader>t :TestNearest <CR>
-autocmd FileType python nmap <leader>ta :TestFile <CR>
-autocmd FileType python nmap <leader>tl :TestLast <CR>
+" autocmd FileType python nmap <leader>t :TestNearest <CR>
+" autocmd FileType python nmap <leader>ta :TestFile <CR>
+" autocmd FileType python nmap <leader>tl :TestLast <CR>
+autocmd FileType *.py nmap <leader>t :TestNearest <CR>
+autocmd FileType *.py nmap <leader>ta :TestFile <CR>
+autocmd FileType *.py nmap <leader>tl :TestLast <CR>
 
 function OnSaveFormatPython()
 Autoformat
@@ -280,6 +286,14 @@ let mapleader=" "
 nmap <silent> <F8> :VimFilerExplorer <CR>
 nmap <silent> <F7> :TaskList <CR>
 nmap <silent> <F9> :TagbarToggle <CR>
+
+function! NumberToggle()
+	set nu!
+endfunction
+
+nmap <silent> <F6>:call NumberToggle() <CR>
+
+
 nmap <leader>w : bd <CR> 
 nmap <leader>n : bnext <CR>
 nmap <leader>p : bprev <CR>
@@ -294,6 +308,6 @@ endif
 if has("unix")
 set notermguicolors
 endif
-let g:airline_theme='gruvbox'
-" set background=light
-colorscheme gruvbox
+"let g:airline_theme='gruvbox'
+"set background=light
+colorscheme solarized8_high
