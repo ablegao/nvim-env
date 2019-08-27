@@ -5,7 +5,9 @@ Plug 'junegunn/vim-easy-align'
 " Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Multiple Plug commands can be written in a single line using | separators
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
 " On-demand loading
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
@@ -19,10 +21,10 @@ Plug 'bling/vim-airline'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+"" Plug 'autozimu/LanguageClient-neovim', {
+""     \ 'branch': 'next',
+""     \ 'do': 'bash install.sh',
+""     \ }
 Plug 'junegunn/fzf'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -37,7 +39,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'janko/vim-test'
  Plug 'tpope/vim-dispatch'
 " Plug 'jupyter-vim/jupyter-vim'
-" Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " Plug 'delijati/vim-importmagic'
 
 Plug 'Yggdroot/indentLine'
@@ -171,28 +173,28 @@ let g:airline#extensions#tabline#formatter = 'default'
 let test#neovim#term_position = "topleft"
 
 "" python 
-let g:jedi#completions_enabled = 0
-"let g:jedi#use_splits_not_buffers = "right"
-let g:jedi#goto_command = "gd"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#documentation_command = "K"
-let g:LanguageClient_serverCommands={"python":['pyls']}
-
+"" let g:jedi#completions_enabled = 0
+"" "let g:jedi#use_splits_not_buffers = "right"
+"" let g:jedi#goto_command = "gd"
+"" let g:jedi#usages_command = "<leader>n"
+"" let g:jedi#rename_command = "<leader>r"
+"" let g:jedi#goto_assignments_command = "<leader>g"
+"" let g:jedi#documentation_command = "K"
+"" let g:LanguageClient_serverCommands={"python":['pyls', '-vv', '--log-file', '/tmp/pyls.log']}
+"" let g:LanguageClient_settingsPath="~/.config/nvim/lc-settings.json"
 
 " let g:autopep8_on_save = 1
 " let g:autopep8_disable_show_diff=1
 
-let g:autoformat_autoindent = 0
-let g:autoformat_retab = 0
-let g:autoformat_remove_trailing_spaces = 0
-"autocmd FileType python let g:autoformat_autoindent=1
-autocmd FileType python let g:autoformat_retab=1
-autocmd FileType python let g:autoformat_remove_trailing_spaces=1
-let g:formatter_yapf_style ="google"
-" let g:formatter_yapf_style = 'pep8'
-let g:formatters_python = ['yapf']
+"let g:autoformat_autoindent = 0
+"let g:autoformat_retab = 0
+"let g:autoformat_remove_trailing_spaces = 0
+""autocmd FileType python let g:autoformat_autoindent=1
+"autocmd FileType python let g:autoformat_retab=1
+"autocmd FileType python let g:autoformat_remove_trailing_spaces=1
+"let g:formatter_yapf_style ="google"
+"" let g:formatter_yapf_style = 'pep8'
+"let g:formatters_python = ['yapf']
 
 
 let test#strategy = "neovim"
@@ -210,7 +212,7 @@ function OnSaveFormatPython()
 Autoformat
 "Isort 
 endf
-autocmd BufWrite *.py :call LanguageClient_textDocument_formatting()
+" autocmd BufWrite *.py :call LanguageClient_textDocument_formatting()
 let g:LanguageClient_windowLogMessageLevel='Error'
 let g:LanguageClient_diagnosticsDisplay=    {
     \1: {
