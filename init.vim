@@ -50,10 +50,17 @@ Plug 'kien/ctrlp.vim' "文件搜索,杀手级,重新定义了编辑器打开文�
 Plug 'vim-scripts/TaskList.vim'           "快速跳转到TODO列表
 "Plug 'Shougo/echodoc.vim'
 
+""" markdown 
+
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'suan/vim-instant-markdown'
+
 "color"
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'taigacute/gruvbox9'
-
+Plug 'altercation/vim-colors-solarized'
+Plug '0x3024/vim'
 Plug 'ap/vim-buftabline'
 call plug#end()
 filetype plugin on
@@ -100,6 +107,17 @@ set clipboard=unnamed "共享剪贴板
 let g:vimfiler_as_default_explorer = 1
 
 
+" markdown 
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_no_default_key_mappings = 1
+let g:instant_markdown_autostart = 1
+let g:instant_markdown_slow = 1
+
+
+autocmd FileType *.md nmap <leader>t :MarkdownPreviewToggle <CR>
+
+"
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1 
 let g:deoplete#auto_completion_start_length = 0
@@ -311,5 +329,7 @@ if has("unix")
 set notermguicolors
 endif
 "let g:airline_theme='gruvbox'
-"set background=light
-colorscheme solarized8_high
+set background=light
+" colorscheme solarized
+let g:seoul256_background = 256
+colorscheme seoul256
