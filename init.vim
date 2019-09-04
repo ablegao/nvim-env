@@ -42,7 +42,7 @@ Plug 'janko/vim-test'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " Plug 'delijati/vim-importmagic'
 
-Plug 'Yggdroot/indentLine'
+"Plug 'Yggdroot/indentLine'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -52,9 +52,10 @@ Plug 'vim-scripts/TaskList.vim'           "快速跳转到TODO列表
 
 """ markdown 
 
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'suan/vim-instant-markdown'
+
+"  c/c++
+Plug 'skywind3000/asyncrun.vim'
+
 
 "color"
 Plug 'rafi/awesome-vim-colorschemes'
@@ -106,6 +107,17 @@ set clipboard=unnamed "共享剪贴板
 
 let g:vimfiler_as_default_explorer = 1
 
+" c/c++
+"
+" " 自动打开 quickfix window ，高度为 6
+let g:asyncrun_open = 6
+
+" 任务结束时候响铃提醒
+let g:asyncrun_bell = 1
+
+nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
+
+
 
 " markdown 
 let g:vim_markdown_folding_disabled = 1
@@ -113,9 +125,7 @@ let g:vim_markdown_toc_autofit = 1
 let g:vim_markdown_no_default_key_mappings = 1
 let g:instant_markdown_autostart = 1
 let g:instant_markdown_slow = 1
-
-
-autocmd FileType *.md nmap <leader>t :MarkdownPreviewToggle <CR>
+let g:markdownfmt_autosave=1
 
 "
 let g:deoplete#enable_at_startup = 1
@@ -333,3 +343,10 @@ set background=light
 " colorscheme solarized
 let g:seoul256_background = 256
 colorscheme seoul256
+
+
+
+" 避免json 隐藏引号
+"let g:vim_json_syntax_conceal =1 
+"let g:indentLine_noConcealCursor="nc"
+"let g:vim_json_syntax_concealcursor=""

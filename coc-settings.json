@@ -6,5 +6,12 @@
 "python.jediEnabled": false,
 "python.linting.flake8Enabled":true,
 "go.enable": false,
-"coc.preferences.formatOnSaveFiletypes": ["python","json","html"]
+"coc.preferences.formatOnSaveFiletypes": ["python","markdown","json","html","yaml"],
+"languageserver":{
+		"efm":{
+			"command":"efm-langserver",
+			"args":["-c", "~/.config/nvim/efm-config.yaml"],
+			"filetypes":["vim","yaml","markdown"]
+		}
+	}
 }
