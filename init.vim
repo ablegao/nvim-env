@@ -28,6 +28,11 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'junegunn/fzf'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if has('win32') || has('win64')
+  Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
+else
+  Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+endif
 Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
@@ -134,6 +139,11 @@ let g:deoplete#auto_completion_start_length = 0
 
 let g:deoplete#sources#go#gocode_binary="$GOPATH/bin/gocode"	
 let g:deoplete#sources#go#package_dot = 1
+"let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#source_importer = 1
+let g:deoplete#sources#go#pointer=1
+let g:deoplete#sources#go#auto_goos=1
+
 "let g:deoplete#sources#go#cgo = 1
 let g:deoplete#sources#go#builtin_objects=1    " 自动编译
 let g:deoplete#sources#go#unimported_packages=1 " 尝试饮用为定义包名
