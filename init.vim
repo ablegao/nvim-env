@@ -21,30 +21,35 @@ Plug 'bling/vim-airline'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
-"" Plug 'autozimu/LanguageClient-neovim', {
-""     \ 'branch': 'next',
-""     \ 'do': 'bash install.sh',
-""     \ }
+Plug 'autozimu/LanguageClient-neovim', {
+     \ 'branch': 'next',
+     \ 'do': 'bash install.sh',
+     \ }
 Plug 'junegunn/fzf'
+" Plug 'Shougo/neoinclude.vim'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+
 if has('win32') || has('win64')
   Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
 else
   Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 endif
+
+" Plug 'zchee/deoplete-clang'
 Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" Plug 'sbdchd/neoformat',{'for':'python'}
-"Plug 'deoplete-plugins/deoplete-jedi'
-" Plug 'davidhalter/jedi-vim'
-" Plug 'Chiel92/vim-autoformat'
-" Plug 'fisadev/vim-isort'
+ Plug 'sbdchd/neoformat',{'for':'python'}
+Plug 'deoplete-plugins/deoplete-jedi'
+ Plug 'davidhalter/jedi-vim'
+ Plug 'Chiel92/vim-autoformat'
+"" Plug 'fisadev/vim-isort'
 Plug 'janko/vim-test'
  Plug 'tpope/vim-dispatch'
 " Plug 'jupyter-vim/jupyter-vim'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " Plug 'delijati/vim-importmagic'
 
 "Plug 'Yggdroot/indentLine'
@@ -107,7 +112,7 @@ set whichwrap+=<,>,h,l
 set autoread
 set cursorline      "突出显示当前行"
 set cursorcolumn        "突出显示当前列"
-
+set hidden
 set clipboard=unnamed "共享剪贴板
 
 let g:vimfiler_as_default_explorer = 1
@@ -122,7 +127,44 @@ let g:asyncrun_bell = 1
 
 nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 
+" 用户输入至少两个字符时再开始提示补全
+call deoplete#custom#source('LanguageClient',
+            \ 'min_pattern_length',
+            \ 2)
 
+" 字符串中不补全
+call deoplete#custom#source('_',
+            \ 'disabled_syntaxes', ['String']
+            \ )
+
+
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" 是的vim script和zsh script都有，这就是deoplete
+call deoplete#custom#option('sources', {
+            \ 'cpp': ['LanguageClient'],
+            \ 'c': ['LanguageClient'],
+            \ 'zsh': ['zsh']
+            \})
+
+" Clang
+let g:deoplete#sources#clang#libclang_path="/usr/local/opt/llvm/lib/libclang.dylib"
+let g:deoplete#sources#clang#clang_header="/usr/local/opt/llvm/lib/clang/8.0.1"
+let g:LanguageClient_rootMarkers = {
+            \ 'cpp': ['compile_commands.json', 'build'],
+            \ 'c': ['compile_commands.json', 'build']
+            \ }
+" 为语言指定Language server和server的参数
+let g:LanguageClient_serverCommands = {
+            \ 'cpp': ['clangd', '-compile-commands-dir='.getcwd()."/"],
+            \ 'c': ['clangd', '-compile-commands-dir='.getcwd().'.'],
+			\ "python":['pyls','-vv','--log-file','/tmp/pyls.log']
+            \ }
+
+"let g:LanguageClient_serverCommands={"python":['pyls', '-vv', '--log-file', '/tmp/pyls.log']}
+let g:LanguageClient_settingsPath="~/.config/nvim/lc-settings.json"
+set completefunc=LanguageClient#complete
+set formatexpr=LanguageClient_textDocument_rangeFormatting()
+let  g:LanguageClient_diagnosticsSignsMax=2
 
 " markdown 
 let g:vim_markdown_folding_disabled = 1
@@ -211,15 +253,13 @@ let g:airline#extensions#tabline#formatter = 'default'
 let test#neovim#term_position = "topleft"
 
 "" python 
-"" let g:jedi#completions_enabled = 0
-"" "let g:jedi#use_splits_not_buffers = "right"
-"" let g:jedi#goto_command = "gd"
-"" let g:jedi#usages_command = "<leader>n"
-"" let g:jedi#rename_command = "<leader>r"
-"" let g:jedi#goto_assignments_command = "<leader>g"
-"" let g:jedi#documentation_command = "K"
-"" let g:LanguageClient_serverCommands={"python":['pyls', '-vv', '--log-file', '/tmp/pyls.log']}
-"" let g:LanguageClient_settingsPath="~/.config/nvim/lc-settings.json"
+let g:jedi#completions_enabled = 0
+"let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#goto_command = "gd"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#documentation_command = "K"
 
 " let g:autopep8_on_save = 1
 " let g:autopep8_disable_show_diff=1
@@ -250,7 +290,12 @@ function OnSaveFormatPython()
 Autoformat
 "Isort 
 endf
-" autocmd BufWrite *.py :call LanguageClient_textDocument_formatting()
+autocmd BufWrite *.py :call LanguageClient_textDocument_formatting()
+autocmd BufWrite *.cpp :call LanguageClient_textDocument_formatting()
+autocmd BufWrite *.h :call LanguageClient_textDocument_formatting()
+autocmd BufWrite *.sh :call LanguageClient_textDocument_formatting()
+autocmd BufWrite *.vim :call LanguageClient_textDocument_formatting()
+autocmd BufWrite *.md :call LanguageClient_textDocument_formatting()
 let g:LanguageClient_windowLogMessageLevel='Error'
 let g:LanguageClient_diagnosticsDisplay=    {
     \1: {
@@ -348,11 +393,11 @@ endif
 if has("unix")
 set notermguicolors
 endif
-"let g:airline_theme='gruvbox'
-set background=light
+let g:airline_theme='gruvbox'
+"set background=light
 " colorscheme solarized
 let g:seoul256_background = 256
-colorscheme seoul256
+" colorscheme seoul256
 
 
 
