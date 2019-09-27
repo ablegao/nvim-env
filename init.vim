@@ -143,6 +143,9 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 call deoplete#custom#option('sources', {
             \ 'cpp': ['LanguageClient'],
             \ 'c': ['LanguageClient'],
+            \ 'python': ['LanguageClient'],
+            \ 'md': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
+            \ 'yaml': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
             \ 'zsh': ['zsh']
             \})
 
@@ -163,7 +166,8 @@ let g:LanguageClient_serverCommands = {
 "let g:LanguageClient_serverCommands={"python":['pyls', '-vv', '--log-file', '/tmp/pyls.log']}
 let g:LanguageClient_settingsPath="~/.config/nvim/lc-settings.json"
 set completefunc=LanguageClient#complete
-set formatexpr=LanguageClient_textDocument_rangeFormatting()
+" set formatexpr=LanguageClient_textDocument_rangeFormatting()
+set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 let  g:LanguageClient_diagnosticsSignsMax=2
 
 " markdown 
@@ -291,11 +295,13 @@ Autoformat
 "Isort 
 endf
 autocmd BufWrite *.py :call LanguageClient_textDocument_formatting()
+" autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting_sync()
+
 autocmd BufWrite *.cpp :call LanguageClient_textDocument_formatting()
 autocmd BufWrite *.h :call LanguageClient_textDocument_formatting()
-autocmd BufWrite *.sh :call LanguageClient_textDocument_formatting()
-autocmd BufWrite *.vim :call LanguageClient_textDocument_formatting()
-autocmd BufWrite *.md :call LanguageClient_textDocument_formatting()
+" autocmd BufWrite *.sh :call LanguageClient_textDocument_formatting()
+" autocmd BufWrite *.vim :call LanguageClient_textDocument_formatting()
+" autocmd BufWrite *.md :call LanguageClient_textDocument_formatting()
 let g:LanguageClient_windowLogMessageLevel='Error'
 let g:LanguageClient_diagnosticsDisplay=    {
     \1: {
