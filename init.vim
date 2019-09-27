@@ -155,8 +155,8 @@ let g:LanguageClient_rootMarkers = {
             \ }
 " 为语言指定Language server和server的参数
 let g:LanguageClient_serverCommands = {
-            \ 'cpp': ['clangd', '-compile-commands-dir='.getcwd()."/"],
-            \ 'c': ['clangd', '-compile-commands-dir='.getcwd().'.'],
+            \ 'cpp': ['clangd', '-compile-commands-dir='.getcwd()."/build/"],
+            \ 'c': ['clangd', '-compile-commands-dir='.getcwd().'/build/'],
 			\ "python":['pyls','-vv','--log-file','/tmp/pyls.log']
             \ }
 
