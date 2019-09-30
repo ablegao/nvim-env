@@ -185,7 +185,7 @@ let g:deoplete#auto_completion_start_length = 0
 
 let g:deoplete#sources#go#gocode_binary="$GOPATH/bin/gocode"	
 let g:deoplete#sources#go#package_dot = 1
-"let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 let g:deoplete#sources#go#source_importer = 1
 let g:deoplete#sources#go#pointer=1
 let g:deoplete#sources#go#auto_goos=1
@@ -239,6 +239,8 @@ let g:go_fmt_fail_silently = 1
 let g:go_snippet_engine = "neosnippet"
 let g:go_test_timeout= '10s'
 let g:go_test_show_name = 1
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 let g:test#go#gotest#file_pattern="\v.*_test\.go$"
 autocmd FileType go nmap <leader>ta <Plug>(go-test)
