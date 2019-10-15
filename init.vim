@@ -389,6 +389,8 @@ endfunction
 
 nmap <silent> <F6>:call NumberToggle() <CR>
 
+" 查找
+nmap <leader>f : Ack -i 
 
 nmap <leader>w : bd <CR> 
 nmap <leader>n : bnext <CR>
