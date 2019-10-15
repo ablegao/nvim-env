@@ -29,6 +29,7 @@ Plug 'junegunn/fzf'
 " Plug 'Shougo/neoinclude.vim'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'mileszs/ack.vim'
 
 
 if has('win32') || has('win64')
@@ -114,7 +115,7 @@ set cursorline      "突出显示当前行"
 set cursorcolumn        "突出显示当前列"
 set hidden
 set clipboard=unnamed "共享剪贴板
-
+set grepprg=ack\ --nogroup\ $*
 let g:vimfiler_as_default_explorer = 1
 
 " c/c++
@@ -143,6 +144,7 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 call deoplete#custom#option('sources', {
             \ 'cpp': ['LanguageClient'],
             \ 'c': ['LanguageClient'],
+            \ 'lua': ['LanguageClient'],
             \ 'python': ['LanguageClient'],
             \ 'md': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
             \ 'yaml': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
@@ -160,6 +162,7 @@ let g:LanguageClient_rootMarkers = {
 let g:LanguageClient_serverCommands = {
             \ 'cpp': ['clangd', '-compile-commands-dir='.getcwd()."/"],
             \ 'c': ['clangd', '-compile-commands-dir='.getcwd().'.'],
+            \ 'lua': ['lua-lsp'],
 			\ "python":['pyls','-vv','--log-file','/tmp/pyls.log']
             \ }
 
@@ -402,11 +405,11 @@ if has("unix")
 set notermguicolors
 endif
 let g:airline_theme='gruvbox'
-"set background=light
+" set background=light
 " colorscheme solarized
 let g:seoul256_background = 256
 " colorscheme seoul256
-
+colorscheme gruvbox
 
 
 " 避免json 隐藏引号
