@@ -20,6 +20,7 @@ Plug 'majutsushi/tagbar'
 Plug 'bling/vim-airline'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'zivyangll/git-blame.vim'
 
 Plug 'autozimu/LanguageClient-neovim', {
      \ 'branch': 'next',
@@ -392,6 +393,14 @@ nmap <silent> <F6>:call NumberToggle() <CR>
 " 查找
 nmap <leader>f : Ack -i 
 
+function! GitBlame()
+	let line =line(".") "getline('.')
+	if len(line) >0
+	execute '!git blame -L '.line.',1 '.@%
+	endif 
+endfunction 
+
+nnoremap <Leader>s :call GitBlame() <CR>
 nmap <leader>w : bd <CR> 
 nmap <leader>n : bnext <CR>
 nmap <leader>p : bprev <CR>
