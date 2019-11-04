@@ -20,6 +20,7 @@ Plug 'majutsushi/tagbar'
 Plug 'bling/vim-airline'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'zivyangll/git-blame.vim'
 
 Plug 'autozimu/LanguageClient-neovim', {
      \ 'branch': 'next',
@@ -29,6 +30,7 @@ Plug 'junegunn/fzf'
 " Plug 'Shougo/neoinclude.vim'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'mileszs/ack.vim'
 
 
 if has('win32') || has('win64')
@@ -114,7 +116,7 @@ set cursorline      "突出显示当前行"
 set cursorcolumn        "突出显示当前列"
 set hidden
 set clipboard=unnamed "共享剪贴板
-
+set grepprg=ack\ --nogroup\ $*
 let g:vimfiler_as_default_explorer = 1
 
 " c/c++
@@ -143,6 +145,7 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 call deoplete#custom#option('sources', {
             \ 'cpp': ['LanguageClient'],
             \ 'c': ['LanguageClient'],
+            \ 'lua': ['LanguageClient'],
             \ 'python': ['LanguageClient'],
             \ 'md': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
             \ 'yaml': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
@@ -160,6 +163,7 @@ let g:LanguageClient_rootMarkers = {
 let g:LanguageClient_serverCommands = {
             \ 'cpp': ['clangd', '-compile-commands-dir='.getcwd()."/build/"],
             \ 'c': ['clangd', '-compile-commands-dir='.getcwd().'/build/'],
+            \ 'lua': ['lua-lsp'],
 			\ "python":['pyls','-vv','--log-file','/tmp/pyls.log']
             \ }
 
@@ -185,7 +189,7 @@ let g:deoplete#auto_completion_start_length = 0
 
 let g:deoplete#sources#go#gocode_binary="$GOPATH/bin/gocode"	
 let g:deoplete#sources#go#package_dot = 1
-"let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 let g:deoplete#sources#go#source_importer = 1
 let g:deoplete#sources#go#pointer=1
 let g:deoplete#sources#go#auto_goos=1
@@ -239,6 +243,8 @@ let g:go_fmt_fail_silently = 1
 let g:go_snippet_engine = "neosnippet"
 let g:go_test_timeout= '10s'
 let g:go_test_show_name = 1
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 let g:test#go#gotest#file_pattern="\v.*_test\.go$"
 autocmd FileType go nmap <leader>ta <Plug>(go-test)
@@ -384,7 +390,17 @@ endfunction
 
 nmap <silent> <F6>:call NumberToggle() <CR>
 
+" 查找
+nmap <leader>f : Ack -i 
 
+function! GitBlame()
+	let line =line(".") "getline('.')
+	if len(line) >0
+	execute '!git blame -L '.line.',1 '.@%
+	endif 
+endfunction 
+
+nnoremap <Leader>s :call GitBlame() <CR>
 nmap <leader>w : bd <CR> 
 nmap <leader>n : bnext <CR>
 nmap <leader>p : bprev <CR>
@@ -400,11 +416,11 @@ if has("unix")
 set notermguicolors
 endif
 let g:airline_theme='gruvbox'
-"set background=light
+" set background=light
 " colorscheme solarized
 let g:seoul256_background = 256
 " colorscheme seoul256
-
+colorscheme gruvbox
 
 
 " 避免json 隐藏引号
