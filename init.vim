@@ -73,6 +73,8 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'taigacute/gruvbox9'
 Plug 'altercation/vim-colors-solarized'
+Plug 'liuchengxu/space-vim-theme'
+
 Plug '0x3024/vim'
 Plug 'ap/vim-buftabline'
 call plug#end()
@@ -416,12 +418,12 @@ if has("unix")
 set notermguicolors
 endif
 let g:airline_theme='gruvbox'
-" set background=light
+set background=light
 " colorscheme solarized
 let g:seoul256_background = 256
 " colorscheme seoul256
-colorscheme gruvbox
-
+" colorscheme gruvbox
+colorscheme space_vim_theme
 
 " 避免json 隐藏引号
 "let g:vim_json_syntax_conceal =1 
