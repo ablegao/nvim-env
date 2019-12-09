@@ -14,7 +14,11 @@ Plug 'scrooloose/syntastic'
 "Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimproc'
+
+" 目录管理
 Plug 'Shougo/vimfiler.vim'
+
+
 Plug 'Shougo/neossh.vim'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-airline'
@@ -69,6 +73,10 @@ Plug 'vim-scripts/TaskList.vim'           "快速跳转到TODO列表
 Plug 'skywind3000/asyncrun.vim'
 
 
+" buffer list 
+Plug 'ap/vim-buftabline'
+
+
 "color"
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'taigacute/gruvbox9'
@@ -76,7 +84,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'liuchengxu/space-vim-theme'
 
 Plug '0x3024/vim'
-Plug 'ap/vim-buftabline'
 call plug#end()
 filetype plugin on
 
@@ -411,6 +418,18 @@ nnoremap <Leader>s :call GitBlame() <CR>
 nmap <leader>w : bd <CR> 
 nmap <leader>n : bnext <CR>
 nmap <leader>p : bprev <CR>
+nmap <leader>1 <Plug>BufTabLine.Go(1)
+nmap <leader>2 <Plug>BufTabLine.Go(2)
+nmap <leader>3 <Plug>BufTabLine.Go(3)
+nmap <leader>4 <Plug>BufTabLine.Go(4)
+nmap <leader>5 <Plug>BufTabLine.Go(5)
+nmap <leader>6 <Plug>BufTabLine.Go(6)
+nmap <leader>7 <Plug>BufTabLine.Go(7)
+nmap <leader>8 <Plug>BufTabLine.Go(8)
+nmap <leader>9 <Plug>BufTabLine.Go(9)
+nmap <leader>0 <Plug>BufTabLine.Go(10)
+
+
 if has("termguicolors")
     " fix bug for vim
     set t_8f=^[[38;2;%lu;%lu;%lum
