@@ -123,6 +123,7 @@ let g:vimfiler_as_default_explorer = 1
 
 " c/c++
 "
+
 " " 自动打开 quickfix window ，高度为 6
 let g:asyncrun_open = 6
 
@@ -307,6 +308,10 @@ autocmd BufWrite *.py :call LanguageClient_textDocument_formatting()
 
 autocmd BufWrite *.cpp :call LanguageClient_textDocument_formatting()
 autocmd BufWrite *.h :call LanguageClient_textDocument_formatting()
+
+autocmd FileType vimfiler nmap <silent><buffer> <2-LeftMouse> <Plug>(vimfiler_smart_l)
+
+
 " autocmd BufWrite *.sh :call LanguageClient_textDocument_formatting()
 " autocmd BufWrite *.vim :call LanguageClient_textDocument_formatting()
 " autocmd BufWrite *.md :call LanguageClient_textDocument_formatting()
