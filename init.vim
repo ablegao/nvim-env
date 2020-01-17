@@ -44,7 +44,7 @@ else
 endif
 
 " Plug 'zchee/deoplete-clang'
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+"  Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
  Plug 'sbdchd/neoformat',{'for':'python'}
@@ -149,7 +149,6 @@ call deoplete#custom#source('_',
             \ 'disabled_syntaxes', ['String']
             \ )
 
-
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " 是的vim script和zsh script都有，这就是deoplete
 call deoplete#custom#option('sources', {
@@ -174,6 +173,7 @@ let g:LanguageClient_serverCommands = {
             \ 'cpp': ['clangd', '-compile-commands-dir='.getcwd()."/build/"],
             \ 'c': ['clangd', '-compile-commands-dir='.getcwd().'/build/'],
             \ 'lua': ['lua-lsp'],
+			\ 'go':['gopls'],
 			\ "python":['pyls','-vv','--log-file','/tmp/pyls.log']
             \ }
 
@@ -197,17 +197,17 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1 
 let g:deoplete#auto_completion_start_length = 0
 
-let g:deoplete#sources#go#gocode_binary="$GOPATH/bin/gocode"	
-let g:deoplete#sources#go#package_dot = 1
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-let g:deoplete#sources#go#source_importer = 1
-let g:deoplete#sources#go#pointer=1
-let g:deoplete#sources#go#auto_goos=1
-
-"let g:deoplete#sources#go#cgo = 1
-let g:deoplete#sources#go#builtin_objects=1    " 自动编译
-let g:deoplete#sources#go#unimported_packages=1 " 尝试饮用为定义包名
-let g:deoplete#sources#go#fallback_to_source=1 " 尝试找其他包名
+" let g:deoplete#sources#go#gocode_binary="$GOPATH/bin/gocode"	
+" let g:deoplete#sources#go#package_dot = 1
+" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" let g:deoplete#sources#go#source_importer = 1
+" let g:deoplete#sources#go#pointer=1
+" let g:deoplete#sources#go#auto_goos=1
+" 
+" "let g:deoplete#sources#go#cgo = 1
+" let g:deoplete#sources#go#builtin_objects=1    " 自动编译
+" let g:deoplete#sources#go#unimported_packages=1 " 尝试饮用为定义包名
+" let g:deoplete#sources#go#fallback_to_source=1 " 尝试找其他包名
 
 
 let g:tagbar_type_go = {
@@ -242,6 +242,8 @@ let g:tagbar_type_go = {
 
 let g:go_fmt_autosave = 1
 let g:go_highlight_functions = 1
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
@@ -298,6 +300,7 @@ let g:jedi#documentation_command = "K"
 let test#strategy = "neovim"
 let test#enabled_runners=["python#pytest"]
 let test#python#pytest#executable = 'python -m pytest --capture=no'
+
 
 " autocmd FileType python nmap <leader>t :TestNearest <CR>
 " autocmd FileType python nmap <leader>ta :TestFile <CR>
