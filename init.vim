@@ -44,7 +44,8 @@ else
 endif
 
 " Plug 'zchee/deoplete-clang'
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+
+" Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
  Plug 'sbdchd/neoformat',{'for':'python'}
@@ -153,9 +154,10 @@ call deoplete#custom#source('_',
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " 是的vim script和zsh script都有，这就是deoplete
 call deoplete#custom#option('sources', {
-            \ 'cpp': ['LanguageClient'],
+			\ 'cpp': ['LanguageClient'],
             \ 'c': ['LanguageClient'],
             \ 'lua': ['LanguageClient'],
+            \ 'go': ['LanguageClient'],
             \ 'python': ['LanguageClient'],
             \ 'md': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
             \ 'yaml': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
@@ -174,6 +176,7 @@ let g:LanguageClient_serverCommands = {
             \ 'cpp': ['clangd', '-compile-commands-dir='.getcwd()."/build/"],
             \ 'c': ['clangd', '-compile-commands-dir='.getcwd().'/build/'],
             \ 'lua': ['lua-lsp'],
+            \ 'go': ['gopls'],
 			\ "python":['pyls','-vv','--log-file','/tmp/pyls.log']
             \ }
 
