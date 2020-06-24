@@ -1,4 +1,4 @@
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'itchyny/lightline.vim'
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
@@ -33,21 +33,21 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'junegunn/fzf'
 " Plug 'Shougo/neoinclude.vim'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'mileszs/ack.vim'
 
 
-if has('win32') || has('win64')
-  Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
-else
-  Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
-endif
+" if has('win32') || has('win64')
+"   Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
+" else
+"   Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+" endif
 
 " Plug 'zchee/deoplete-clang'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
  Plug 'sbdchd/neoformat',{'for':'python'}
-Plug 'deoplete-plugins/deoplete-jedi'
+" Plug 'deoplete-plugins/deoplete-jedi'
  Plug 'davidhalter/jedi-vim'
  Plug 'Chiel92/vim-autoformat'
 "" Plug 'fisadev/vim-isort'
@@ -126,7 +126,7 @@ set hidden
 set clipboard=unnamed "共享剪贴板
 set grepprg=ack\ --nogroup\ $*
 let g:vimfiler_as_default_explorer = 1
-
+let g:python3_host_prog="/home/nbt/miniconda3/bin/python"
 " c/c++
 "
 
@@ -138,28 +138,28 @@ let g:asyncrun_bell = 1
 
 nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 
-" 用户输入至少两个字符时再开始提示补全
-call deoplete#custom#source('LanguageClient',
-            \ 'min_pattern_length',
-            \ 2)
-
-" 字符串中不补全
-call deoplete#custom#source('_',
-            \ 'disabled_syntaxes', ['String']
-            \ )
-
+" " 用户输入至少两个字符时再开始提示补全
+" call deoplete#custom#source('LanguageClient',
+"             \ 'min_pattern_length',
+"             \ 2)
+" 
+" " 字符串中不补全
+" call deoplete#custom#source('_',
+"             \ 'disabled_syntaxes', ['String']
+"             \ )
+" 
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " 是的vim script和zsh script都有，这就是deoplete
-call deoplete#custom#option('sources', {
-			\ 'cpp': ['LanguageClient'],
-            \ 'c': ['LanguageClient'],
-            \ 'lua': ['LanguageClient'],
-            \ 'go': ['LanguageClient'],
-            \ 'python': ['LanguageClient'],
-            \ 'md': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
-            \ 'yaml': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
-            \ 'zsh': ['zsh']
-            \})
+" call deoplete#custom#option('sources', {
+" 			\ 'cpp': ['LanguageClient'],
+"             \ 'c': ['LanguageClient'],
+"             \ 'lua': ['LanguageClient'],
+"             \ 'go': ['LanguageClient'],
+"             \ 'python': ['LanguageClient'],
+"             \ 'md': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
+"             \ 'yaml': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
+"             \ 'zsh': ['zsh']
+"             \})
 
 " Clang
 let g:deoplete#sources#clang#libclang_path="/usr/local/opt/llvm/lib/libclang.dylib"
@@ -449,8 +449,9 @@ set background=light
 " colorscheme solarized
 let g:seoul256_background = 256
 " colorscheme seoul256
-" colorscheme gruvbox
-colorscheme space_vim_theme
+colorscheme carbonized-dark 
+colorscheme gruvbox9_soft 
+" colorscheme space_vim_theme
 
 " 避免json 隐藏引号
 "let g:vim_json_syntax_conceal =1 
