@@ -36,7 +36,6 @@ Plug 'junegunn/fzf'
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'mileszs/ack.vim'
 
-
 " if has('win32') || has('win64')
 "   Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
 " else
@@ -53,7 +52,6 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "" Plug 'fisadev/vim-isort'
 Plug 'janko/vim-test'
  Plug 'tpope/vim-dispatch'
-" Plug 'jupyter-vim/jupyter-vim'
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " Plug 'delijati/vim-importmagic'
 
@@ -67,6 +65,11 @@ Plug 'vim-scripts/TaskList.vim'           "快速跳转到TODO列表
 
 """ markdown 
 
+
+" python 
+Plug 'jupyter-vim/jupyter-vim'
+
+Plug 'bfredl/nvim-ipy'
 
 "  c/c++
 Plug 'skywind3000/asyncrun.vim'
@@ -85,6 +88,8 @@ Plug 'liuchengxu/space-vim-theme'
 Plug '0x3024/vim'
 call plug#end()
 filetype plugin on
+
+
 
 "去掉vi的一致性"
 set nocompatible
@@ -126,7 +131,6 @@ set hidden
 set clipboard=unnamed "共享剪贴板
 set grepprg=ack\ --nogroup\ $*
 let g:vimfiler_as_default_explorer = 1
-let g:python3_host_prog="/home/nbt/miniconda3/bin/python"
 " c/c++
 "
 
@@ -313,9 +317,18 @@ function OnSaveFormatPython()
 Autoformat
 "Isort 
 endf
+
+
+" let g:python3_host_prog="python3"
+let g:ipy_celldef ='# %%'
+let g:nvim_ipy_perform_mappings = 0
+
+
 autocmd BufWrite *.py :call LanguageClient_textDocument_formatting()
 " autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting_sync()
-
+nmap <silent> <F2> :IPython<Space>--existing<Space>--no-window<Enter>
+nmap <silent> <F3> :call IPyRunCell() <CR>
+nmap <silent> <F4> :call jobstart(["jupyter" , "qtconsole" , "--JupyterWidget.include_other_output=True"])<Enter>
 autocmd BufWrite *.cpp :call LanguageClient_textDocument_formatting()
 autocmd BufWrite *.h :call LanguageClient_textDocument_formatting()
 
@@ -445,12 +458,13 @@ if has("unix")
 set notermguicolors
 endif
 let g:airline_theme='gruvbox'
+
 set background=light
 " colorscheme solarized
 let g:seoul256_background = 256
 " colorscheme seoul256
-colorscheme carbonized-dark 
-colorscheme gruvbox9_soft 
+" colorscheme carbonized-dark 
+colorscheme gruvbox9
 " colorscheme space_vim_theme
 
 " 避免json 隐藏引号
