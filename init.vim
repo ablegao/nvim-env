@@ -25,6 +25,7 @@ Plug 'bling/vim-airline'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'zivyangll/git-blame.vim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'autozimu/LanguageClient-neovim', {
      \ 'branch': 'next',
@@ -33,25 +34,26 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'junegunn/fzf'
 " Plug 'Shougo/neoinclude.vim'
 
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'mileszs/ack.vim'
 
-" if has('win32') || has('win64')
-"   Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
-" else
-"   Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
-" endif
+
+if has('win32') || has('win64')
+  Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
+else
+  Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+endif
 
 " Plug 'zchee/deoplete-clang'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
- Plug 'sbdchd/neoformat',{'for':'python'}
-" Plug 'deoplete-plugins/deoplete-jedi'
- Plug 'davidhalter/jedi-vim'
- Plug 'Chiel92/vim-autoformat'
+Plug 'sbdchd/neoformat',{'for':'python'}
+" Plug 'deoplete-plugins/deoplete-jedi', {'for':'python'}
+"Plug 'davidhalter/jedi-vim'
+Plug 'Chiel92/vim-autoformat'
 "" Plug 'fisadev/vim-isort'
 Plug 'janko/vim-test'
- Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-dispatch'
+" Plug 'jupyter-vim/jupyter-vim'
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " Plug 'delijati/vim-importmagic'
 
@@ -67,7 +69,7 @@ Plug 'vim-scripts/TaskList.vim'           "快速跳转到TODO列表
 
 
 " python 
-Plug 'jupyter-vim/jupyter-vim'
+" Plug 'jupyter-vim/jupyter-vim'
 
 Plug 'bfredl/nvim-ipy'
 
@@ -88,8 +90,6 @@ Plug 'liuchengxu/space-vim-theme'
 Plug '0x3024/vim'
 call plug#end()
 filetype plugin on
-
-
 
 "去掉vi的一致性"
 set nocompatible
@@ -139,7 +139,6 @@ let g:asyncrun_open = 6
 
 " 任务结束时候响铃提醒
 let g:asyncrun_bell = 1
-
 nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 
 " " 用户输入至少两个字符时再开始提示补全
@@ -153,21 +152,8 @@ nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 "             \ )
 " 
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-" 是的vim script和zsh script都有，这就是deoplete
-" call deoplete#custom#option('sources', {
-" 			\ 'cpp': ['LanguageClient'],
-"             \ 'c': ['LanguageClient'],
-"             \ 'lua': ['LanguageClient'],
-"             \ 'go': ['LanguageClient'],
-"             \ 'python': ['LanguageClient'],
-"             \ 'md': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
-"             \ 'yaml': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
-"             \ 'zsh': ['zsh']
-"             \})
 
 " Clang
-let g:deoplete#sources#clang#libclang_path="/usr/local/opt/llvm/lib/libclang.dylib"
-let g:deoplete#sources#clang#clang_header="/usr/local/opt/llvm/lib/clang/8.0.1"
 let g:LanguageClient_rootMarkers = {
             \ 'cpp': ['compile_commands.json', 'build'],
             \ 'c': ['compile_commands.json', 'build']
@@ -178,8 +164,9 @@ let g:LanguageClient_serverCommands = {
             \ 'c': ['clangd', '-compile-commands-dir='.getcwd().'/build/'],
             \ 'lua': ['lua-lsp'],
 			\ 'go':['gopls'],
-			\ "python":['pyls','-vv','--log-file','/tmp/pyls.log']
+			\ "python":['pyls']
             \ }
+" ",'-vv','--log-file','/tmp/pyls.log']
 
 "let g:LanguageClient_serverCommands={"python":['pyls', '-vv', '--log-file', '/tmp/pyls.log']}
 let g:LanguageClient_settingsPath="~/.config/nvim/lc-settings.json"
@@ -199,7 +186,19 @@ let g:markdownfmt_autosave=1
 "
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1 
-let g:deoplete#auto_completion_start_length = 0
+let g:deoplete#auto_completion_start_length = 2
+
+" 是的vim script和zsh script都有，这就是deoplete
+call deoplete#custom#option("sources",{
+			\ 'cpp': ['LanguageClient'],
+            \ 'c': ['LanguageClient'],
+            \ 'lua': ['LanguageClient'],
+            \ 'go': ['LanguageClient'],
+            \ 'python': ['LanguageClient'],
+            \ 'md': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
+            \ 'yaml': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
+            \ 'zsh': ['zsh']
+            \})
 
 " let g:deoplete#sources#go#gocode_binary="$GOPATH/bin/gocode"	
 " let g:deoplete#sources#go#package_dot = 1
@@ -286,6 +285,10 @@ let g:jedi#usages_command = "<leader>n"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#documentation_command = "K"
+"" debug 
+" let g:deoplete#enable_profile = 1
+"call deoplete#enable_logging('DEBUG', 'deoplete.log')
+" call deoplete#custom#set('jedi', 'debug_enabled', 1)
 
 " let g:autopep8_on_save = 1
 " let g:autopep8_disable_show_diff=1
@@ -298,7 +301,7 @@ let g:jedi#documentation_command = "K"
 "autocmd FileType python let g:autoformat_remove_trailing_spaces=1
 "let g:formatter_yapf_style ="google"
 "" let g:formatter_yapf_style = 'pep8'
-"let g:formatters_python = ['yapf']
+let g:formatters_python = ['yapf']
 
 
 let test#strategy = "neovim"
@@ -317,20 +320,17 @@ function OnSaveFormatPython()
 Autoformat
 "Isort 
 endf
+autocmd BufWritePre *.py :call LanguageClient#textDocument_formatting_sync()
 
-
-" let g:python3_host_prog="python3"
-let g:ipy_celldef ='# %%'
-let g:nvim_ipy_perform_mappings = 0
-
-
-autocmd BufWrite *.py :call LanguageClient_textDocument_formatting()
-" autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting_sync()
 nmap <silent> <F2> :IPython<Space>--existing<Space>--no-window<Enter>
 nmap <silent> <F3> :call IPyRunCell() <CR>
 nmap <silent> <F4> :call jobstart(["jupyter" , "qtconsole" , "--JupyterWidget.include_other_output=True"])<Enter>
-autocmd BufWrite *.cpp :call LanguageClient_textDocument_formatting()
-autocmd BufWrite *.h :call LanguageClient_textDocument_formatting()
+
+
+" autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting_sync()
+
+autocmd BufWritePre *.cpp :call LanguageClient#textDocument_formatting_sync()
+autocmd BufWritePre *.h :call LanguageClient#textDocument_formatting_sync()
 
 autocmd FileType vimfiler nmap <silent><buffer> <2-LeftMouse> <Plug>(vimfiler_smart_l)
 
@@ -457,14 +457,13 @@ endif
 if has("unix")
 set notermguicolors
 endif
+set t_Co=256
 let g:airline_theme='gruvbox'
-
-set background=light
+"set background=light
 " colorscheme solarized
-let g:seoul256_background = 256
 " colorscheme seoul256
 " colorscheme carbonized-dark 
-colorscheme gruvbox9
+ colorscheme gruvbox9_soft 
 " colorscheme space_vim_theme
 
 " 避免json 隐藏引号
