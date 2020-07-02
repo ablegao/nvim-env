@@ -262,10 +262,10 @@ let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 
 let g:test#go#gotest#file_pattern="\v.*_test\.go$"
-autocmd FileType go nmap <leader>ta <Plug>(go-test)
-autocmd FileType go nmap <leader>t <Plug>(go-test-func)
+autocmd FileType go nmap <silent> <F2> :GoTest -v <Enter>
+autocmd FileType go nmap <silent> <F3> :GoTestFunc -v <Enter>
 autocmd FileType go nmap <leader>b <Plug>(go-build)
-autocmd FileType go nmap <Leader>i <Plug>(go-info)
+autocmd FileType go nmap <silent> <F4> :GoInfo <Enter>
 autocmd FileType go nmap K <Plug>(go-doc)
 
 let g:airline#extensions#tabline#enabled = 1
@@ -322,9 +322,9 @@ Autoformat
 endf
 autocmd BufWritePre *.py :call LanguageClient#textDocument_formatting_sync()
 
-nmap <silent> <F2> :IPython<Space>--existing<Space>--no-window<Enter>
-nmap <silent> <F3> :call IPyRunCell() <CR>
-nmap <silent> <F4> :call jobstart(["jupyter" , "qtconsole" , "--JupyterWidget.include_other_output=True"])<Enter>
+autocmd FileType python nmap <silent> <F2> :IPython<Space>--existing<Space>--no-window<Enter>
+autocmd FileType python nmap <silent> <F3> :call IPyRunCell() <CR>
+autocmd FileType python nmap <silent> <F4> :call jobstart(["jupyter" , "qtconsole" , "--JupyterWidget.include_other_output=True"])<Enter>
 
 
 " autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting_sync()
