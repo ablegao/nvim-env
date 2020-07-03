@@ -90,7 +90,7 @@ Plug 'liuchengxu/space-vim-theme'
 Plug '0x3024/vim'
 call plug#end()
 filetype plugin on
-
+let g:nvim_ipy_perform_mappings=0
 "去掉vi的一致性"
 set nocompatible
 "显示行号"
