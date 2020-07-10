@@ -1,12 +1,12 @@
 call plug#begin('~/.config/nvim/plugged')
-Plug 'itchyny/lightline.vim'
+"Plug 'itchyny/lightline.vim'
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-Plug 'junegunn/vim-easy-align'
+"Plug 'junegunn/vim-easy-align'
 " Any valid git URL is allowed
-Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+"Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Multiple Plug commands can be written in a single line using | separators
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
+"Plug 'MarcWeber/vim-addon-mw-utils'
+"Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -17,21 +17,21 @@ Plug 'Shougo/vimproc'
 
 " 目录管理
 
-" Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 " Plug 'bling/vim-airline'
-Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-Plug 'zivyangll/git-blame.vim'
+"Plug 'Raimondi/delimitMate'
+"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+"Plug 'zivyangll/git-blame.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'autozimu/LanguageClient-neovim', {
      \ 'branch': 'next',
      \ 'do': 'bash install.sh',
      \ }
-Plug 'junegunn/fzf'
+"Plug 'junegunn/fzf'
 " Plug 'Shougo/neoinclude.vim'
 
-Plug 'mileszs/ack.vim'
+"Plug 'mileszs/ack.vim'
 
 
 if has('win32') || has('win64')
@@ -75,7 +75,7 @@ Plug 'skywind3000/asyncrun.vim'
 
 
 " buffer list 
-Plug 'jlanzarotta/bufexplorer'
+" Plug 'jlanzarotta/bufexplorer'
 
 "color"
 Plug 'rafi/awesome-vim-colorschemes'
@@ -290,6 +290,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = '*'
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'default'
+
+"au vimenter * :AirlineToggle
 
 
 
