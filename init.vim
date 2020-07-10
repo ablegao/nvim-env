@@ -9,19 +9,16 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 " On-demand loading
-"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
-"Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimproc'
 
 " 目录管理
-Plug 'Shougo/vimfiler.vim'
 
-
-Plug 'Shougo/neossh.vim'
-Plug 'majutsushi/tagbar'
-Plug 'bling/vim-airline'
+" Plug 'majutsushi/tagbar'
+" Plug 'bling/vim-airline'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'zivyangll/git-blame.vim'
@@ -78,8 +75,7 @@ Plug 'skywind3000/asyncrun.vim'
 
 
 " buffer list 
-Plug 'ap/vim-buftabline'
-
+Plug 'jlanzarotta/bufexplorer'
 
 "color"
 Plug 'rafi/awesome-vim-colorschemes'
@@ -130,7 +126,28 @@ set cursorcolumn        "突出显示当前列"
 set hidden
 set clipboard=unnamed "共享剪贴板
 set grepprg=ack\ --nogroup\ $*
-let g:vimfiler_as_default_explorer = 1
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd vimenter * NERDTreeToggle
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+let g:nerdtree_tabs_open_on_console_startup=1
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+
 " c/c++
 "
 
@@ -199,6 +216,7 @@ call deoplete#custom#option("sources",{
             \ 'yaml': ['efm-language','-c','~/.config/nvim/efm-config.yaml'],
             \ 'zsh': ['zsh']
             \})
+
 
 " let g:deoplete#sources#go#gocode_binary="$GOPATH/bin/gocode"	
 " let g:deoplete#sources#go#package_dot = 1
@@ -410,8 +428,8 @@ endfunction
 
 let mapleader=" "
 "nmap <silent> <F8> :call TreeTagbarToggle() <CR>
-nmap <silent> <F8> :VimFilerExplorer <CR>
-nmap <silent> <F7> :TaskList <CR>
+nmap <silent> <F8> :NERDTreeToggle <CR>
+nmap <silent> <F7> :BufExplorerHorizontalSplit<CR>
 nmap <silent> <F9> :TagbarToggle <CR>
 
 function! NumberToggle()
@@ -463,7 +481,8 @@ let g:airline_theme='gruvbox'
 " colorscheme solarized
 " colorscheme seoul256
 " colorscheme carbonized-dark 
- colorscheme gruvbox9_soft 
+colorscheme gruvbox9
+" colorscheme solarized-color
 " colorscheme space_vim_theme
 
 " 避免json 隐藏引号
