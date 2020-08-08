@@ -129,6 +129,7 @@ set clipboard=unnamed "共享剪贴板
 set grepprg=ack\ --nogroup\ $*
 
 autocmd FileType yaml setlocal ai ts=2 sw=2 et
+autocmd FileType yml setlocal ai ts=2 sw=2 et
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd vimenter * NERDTreeToggle
