@@ -7,7 +7,7 @@ call plug#begin('~/.config/nvim/plugged')
 " Multiple Plug commands can be written in a single line using | separators
 "Plug 'MarcWeber/vim-addon-mw-utils'
 "Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
+"Plug 'garbas/vim-snipmate'
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
@@ -75,7 +75,7 @@ Plug 'skywind3000/asyncrun.vim'
 
 
 " buffer list 
-" Plug 'jlanzarotta/bufexplorer'
+Plug 'jlanzarotta/bufexplorer'
 
 "color"
 Plug 'rafi/awesome-vim-colorschemes'
@@ -105,6 +105,7 @@ set fileformat=unix "设置以unix的格式保存文件"
 set cindent     "设置C样式的缩进格式"
 set tabstop=4   "设置table长度"
 set shiftwidth=4        "同上"
+
 set expandtab  "tab用空格代替"
 set showmatch   "显示匹配的括号"
 set scrolloff=5     "距离顶部和底部5行"
@@ -126,6 +127,8 @@ set cursorcolumn        "突出显示当前列"
 set hidden
 set clipboard=unnamed "共享剪贴板
 set grepprg=ack\ --nogroup\ $*
+
+autocmd FileType yaml setlocal ai ts=2 sw=2 et
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd vimenter * NERDTreeToggle
@@ -273,7 +276,7 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
 "let g:go_term_mode = "split"
-let g:go_snippet_engine = "neosnippet"
+" let g:go_snippet_engine = "neosnippet"
 let g:go_test_timeout= '10s'
 let g:go_test_show_name = 1
 let g:go_def_mode='gopls'
@@ -434,11 +437,11 @@ nmap <silent> <F8> :NERDTreeToggle <CR>
 nmap <silent> <F7> :BufExplorerHorizontalSplit<CR>
 nmap <silent> <F9> :TagbarToggle <CR>
 
+nmap <silent> <F6> :w <CR>
 function! NumberToggle()
 	set nu!
 endfunction
 
-nmap <silent> <F6>:call NumberToggle() <CR>
 
 " 查找
 nmap <leader>f : Ack -i 
@@ -479,7 +482,7 @@ set notermguicolors
 endif
 set t_Co=256
 let g:airline_theme='gruvbox'
-"set background=light
+set background=light
 " colorscheme solarized
 " colorscheme seoul256
 " colorscheme carbonized-dark 
