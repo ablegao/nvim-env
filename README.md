@@ -3,7 +3,7 @@
 	PlugInstall
 	VimProcInstall
 	GoInstall
-	pip install python-language-server
+	pip install python-language-server[all]
 	pip install pynvim 
 	pip install yapf
 	pip install autopep8
