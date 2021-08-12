@@ -11,7 +11,7 @@ call plug#begin('~/.config/nvim/plugged')
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimproc'
 
@@ -33,6 +33,8 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 "Plug 'mileszs/ack.vim'
 
+
+"Plug "jmcantrell/vim-virtualenv"
 
 if has('win32') || has('win64')
   Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
@@ -79,9 +81,10 @@ Plug 'jlanzarotta/bufexplorer'
 
 "color"
 Plug 'rafi/awesome-vim-colorschemes'
-Plug 'taigacute/gruvbox9'
 Plug 'altercation/vim-colors-solarized'
 Plug 'liuchengxu/space-vim-theme'
+Plug 'habamax/vim-godot'
+
 
 Plug '0x3024/vim'
 call plug#end()
@@ -110,7 +113,7 @@ set expandtab  "tab用空格代替"
 set showmatch   "显示匹配的括号"
 set scrolloff=5     "距离顶部和底部5行"
 set laststatus=2    "命令行为两行"
-set fenc=utf-8      "文件编码"
+"set fenc=utf-8      "文件编码"
 set backspace=2
 set mouse=a " nicr "a     "启用鼠标"
 set selection=exclusive
@@ -139,7 +142,7 @@ let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 let g:nerdtree_tabs_open_on_console_startup=1
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
@@ -275,6 +278,7 @@ let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
+"let g:go_fmt_command = "gofmt"
 let g:go_fmt_fail_silently = 1
 "let g:go_term_mode = "split"
 " let g:go_snippet_engine = "neosnippet"
@@ -482,14 +486,9 @@ if has("unix")
 set notermguicolors
 endif
 set t_Co=256
-let g:airline_theme='gruvbox'
 set background=light
-" colorscheme solarized
-" colorscheme seoul256
-" colorscheme carbonized-dark 
-colorscheme gruvbox9
-" colorscheme solarized-color
-" colorscheme space_vim_theme
+colorscheme solarized
+let g:airline_theme='solarized'
 
 " 避免json 隐藏引号
 "let g:vim_json_syntax_conceal =1 
